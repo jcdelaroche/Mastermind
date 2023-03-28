@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mastermind</title>
+
+  <!-- Liens vers les fichiers CSS de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <!-- CSS persos -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1 id="title" class="title">Mastermind</h1>
+
+    <div class="row justify-content-center" id="buttons">
+      <div class="col-md-6">
+        <button class="btn btn-secondary btn-lg btn-block" id="solo">Solo</button>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary btn-lg btn-block" id="multi">Multijoueur</button>
+      </div>
+    </div>
+
+    <div class="row" id="returnDiv" style="display:none;">
+      <button id="returnButton" class="col-sm-2 btn btn-primary btn-lg btn-block">Retour</button>
+    </div>
+    <div class="row">
+      <div id="game" style="display:none;">
+        <p>SOLO</p>
+      </div>
+      <div id="room" style="display:none;">
+        <button id="createRoom">Créer une partie</button>
+        <form>
+          Rejoindre une partie
+          <input type="text" id="codeRoom" placeholder="Code de la salle à rejoindre">
+          <input type="submit" id="joinRoom">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Liens vers les fichiers JS de Bootstrap -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  <!-- Scripts persos -->
+  <script>
+    let solo = document.getElementById("solo");
+    let multi = document.getElementById("multi");
+    let soloDiv = document.getElementById("game");
+    let room = document.getElementById("room");
+    let buttons = document.getElementById("buttons");
+    let returnButton = document.getElementById("returnButton");
+    let returnDiv = document.getElementById("returnDiv");
+    let title = document.getElementById("title");
+
+    solo.addEventListener("click", () => {
+        soloDiv.style.display = "block";
+        returnDiv.style.display = "block";
+        buttons.style.display = "none";
+        title.style.display ="none";
+    });
+    multi.addEventListener("click", () => {
+        room.style.display = "block";
+        returnDiv.style.display = "block";
+        buttons.style.display = "none";
+        title.style.display ="none";
+    });
+    returnButton.addEventListener("click", () => {
+      soloDiv.style.display != "none" ? soloDiv.style.display = "none" : room.style.display = "none";
+      returnDiv.style.display = "none";
+      buttons.style.display = "flex";
+      title.style.display ="block";
+    });
+  </script>
+</body>
+</html>
