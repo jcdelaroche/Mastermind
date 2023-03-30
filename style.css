@@ -53,7 +53,7 @@ h5{
   font-size: 2rem;
 }
 
-#gameContainer{
+/* #gameContainer{
   margin-top: 5px;
   flex: 1;
   width:100%; 
@@ -63,7 +63,7 @@ h5{
   -moz-border-radius: 32px 32px 32px 32px;
   border: 5px solid rgba(80,191,255,0.20);
   background: rgba(80,191,255,0.30);
-}
+} */
 
 .fontawesome {
   font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif;
