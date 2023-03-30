@@ -76,28 +76,33 @@ function verifier() {
 
 // Fonction pour vérifier une proposition
 function verifierProposition(proposition) {
-  let bien_places = 0;
-  let mal_places = 0;
-
-  // Vérifier les codes bien placés
-  for (let i = 0; i < 4; i++) {
-    if (proposition[i] === code_secret[i]) {
-      bien_places++;
+    let bien_places = 0;
+    let mal_places = 0;
+    let code_secret_count = {};
+    let proposition_count = {};
+  
+    // Vérifier les codes bien placés
+    for (let i = 0; i < 4; i++) {
+      if (proposition[i] === code_secret[i]) {
+        bien_places++;
+      }
+      // Compter le nombre d'occurrences de chaque couleur dans le code secret et la proposition
+      code_secret_count[code_secret[i]] = (code_secret_count[code_secret[i]] || 0) + 1;
+      proposition_count[proposition[i]] = (proposition_count[proposition[i]] || 0) + 1;
     }
-  }
-
-  // Vérifier les codes mal placés
-  for (let i = 0; i < 4; i++) {
-    if (
-      proposition[i] !== code_secret[i] &&
-      code_secret.includes(proposition[i])
-    ) {
-      mal_places++;
+  
+    // Vérifier les codes mal placés
+    for (let couleur in proposition_count) {
+      if (
+        code_secret_count[couleur] !== undefined &&
+        code_secret_count[couleur] > 0
+      ) {
+        mal_places += Math.min(code_secret_count[couleur], proposition_count[couleur]);
+      }
     }
-  }
-
-  // Retourner le résultat
-  return [bien_places, mal_places];
+  
+    // Retourner le résultat
+    return [bien_places, mal_places - bien_places];
 }
 
 function selectionnerPion(pion) {
