@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mastermind</title>
-
+  <link rel="icon" href="logoMastermind.png">
   <!-- Liens vers les fichiers CSS de Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -33,6 +33,39 @@
       <button id="returnButton" class="col-sm-2 btn btn-primary btn-lg btn-block">Retour</button>
     </div>
     <div class="row hidden" id="gameContainer">
+      <div id="room" class="hidden">
+        <form class="form-horizontal">
+          <fieldset>
+
+            <!-- Form Name -->
+            <legend><b>Multijoueur</b></legend>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-4">
+                <button id="createRoom" name="createRoom" class="btn btn-info">Créer une partie</button>
+              </div>
+            </div>
+            <h5>Rejoindre une partie</h5>
+            <!-- Text input-->
+            <div class="form-group">
+              <div class="col-md-2">
+                <input id="codeRoom" name="codeRoom" type="text" placeholder="Code de la salle"
+                  class="form-control input-md">
+
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <div class="col-md-4">
+                <button id="joinRoom" name="joinRoom" class="btn btn-info">Rejoindre la partie</button>
+              </div>
+            </div>
+
+          </fieldset>
+        </form>
+      </div>
       <div id="game" class="hidden">
         <h3>Choisissez une combinaison de pions:</h3>
         <div class="pion pion-rouge" onclick="selectionnerPion('rouge')"></div>
@@ -59,40 +92,6 @@
               <h4>Résultats :</h4>
             </div>
           </div>
-        </div>
-
-        <div id="room" class="hidden">
-          <form class="form-horizontal">
-            <fieldset>
-
-              <!-- Form Name -->
-              <legend><b>Multijoueur</b></legend>
-
-              <!-- Button -->
-              <div class="form-group">
-                <div class="col-md-4">
-                  <button id="createRoom" name="createRoom" class="btn btn-info">Créer une partie</button>
-                </div>
-              </div>
-              <h5>Rejoindre une partie</h5>
-              <!-- Text input-->
-              <div class="form-group">
-                <div class="col-md-2">
-                  <input id="codeRoom" name="codeRoom" type="text" placeholder="Code de la salle"
-                    class="form-control input-md">
-
-                </div>
-              </div>
-
-              <!-- Button -->
-              <div class="form-group">
-                <div class="col-md-4">
-                  <button id="joinRoom" name="joinRoom" class="btn btn-info">Rejoindre la partie</button>
-                </div>
-              </div>
-
-            </fieldset>
-          </form>
         </div>
       </div>
     </div>
