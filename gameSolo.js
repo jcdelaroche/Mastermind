@@ -51,25 +51,13 @@ function verifier() {
     }
 
     if (resultat[0] === 4) {
-      alert("Félicitations ! Vous avez trouvé le code secret.");
-      for (let i = 1; i < maxGuesses + 1; i++) {
-        for (let j = 1; j < 5; j++) {
-          let tryTmp = document.querySelector(
-            `#prop${i} .pion:nth-of-type(${j})`
-          );
-          tryTmp.classList.remove(`pion-${getColor(tryTmp)}`);
-        }
-        document.getElementById(`resultat${i}`).textContent = undefined;
-      }
-      code_secret = generateCode();
-      index_proposition = 0;
-      console.log(code_secret);
-      for (let i = 0; i < maxGuesses; i++) {
-        $(`#resultat${i}`).textContent = "";
-      }
+      endGame();
     } else {
       let textResult = document.getElementById(`resultat${index_proposition}`);
       textResult.textContent = `Bien placés : ${resultat[0]}, mal placés : ${resultat[1]}`;
+      if (index_proposition === maxGuesses) {
+        gameOver();        
+      }
     }
   }
 }
@@ -144,6 +132,31 @@ function alertNEI() {
   div.setAttribute("role", "alert");
   div.innerHTML = "Veuillez créer un code à 4 couleurs";
   return div;
+}
+
+function endGame(){
+  alert(`Félicitations ! Vous avez trouvé le code secret en ${index_proposition} essais.`);
+  reset();
+}
+
+function gameOver(){
+  alert("Oups, vous avez perdu");
+  reset();
+}
+
+function reset(){
+  for (let i = 1; i < maxGuesses + 1; i++) {
+    for (let j = 1; j < 5; j++) {
+      let tryTmp = document.querySelector(
+        `#prop${i} .pion:nth-of-type(${j})`
+      );
+      tryTmp.classList.remove(`pion-${getColor(tryTmp)}`);
+    }
+    document.getElementById(`resultat${i}`).textContent = "";
+  }
+  code_secret = generateCode();
+  index_proposition = 0;
+  console.log(code_secret);
 }
 
 console.log(code_secret);

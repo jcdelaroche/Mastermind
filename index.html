@@ -11,8 +11,6 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- CSS persos -->
   <link rel="stylesheet" href="style.css">
-  <script src="https://kit.fontawesome.com/4d8437e2fd.js" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 </head>
 
 <body>
@@ -43,7 +41,7 @@
             <!-- Button -->
             <div class="form-group">
               <div class="col-md-4">
-                <button id="createRoom" name="createRoom" class="btn btn-info">Créer une partie</button>
+                <button type="button" id="createGame" name="createGame" class="btn btn-info">Créer une partie</button>
               </div>
             </div>
             <h5>Rejoindre une partie</h5>
@@ -62,7 +60,113 @@
                 <button id="joinRoom" name="joinRoom" class="btn btn-info">Rejoindre la partie</button>
               </div>
             </div>
-
+          </fieldset>
+        </form>
+      </div>
+      <div id="waiting" class="hidden">
+        <h3>En attente d'un adversaire...</h3>
+      </div>
+      <div id="settings" class="hidden">
+        <form class="form-horizontal">
+          <fieldset>
+  
+            <!-- Form Name -->
+            <legend><b>Options</b></legend>
+  
+            <!-- Multiple Radios -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="radios"><b>Nombre de pions :</b></label>
+              <div class="col-md-4">
+                <div class="radio">
+                  <label for="radios-0" class="rad-label">
+                    <input type="radio" class="rad-input" name="radios" id="radios-0" value="4" checked="checked">
+                    <div class="rad-design"></div>
+                    <div class="rad-text">4</div>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label for="radios-1" class="rad-label">
+                    <input type="radio" class="rad-input" name="radios" id="radios-1" value="5">
+                    <div class="rad-design"></div>
+                    <div class="rad-text">5</div>
+                  </label>
+                </div>
+                <div class="radio">
+                  <label for="radios-2" class="rad-label">
+                    <input type="radio" class="rad-input" name="radios" id="radios-2" value="6">
+                    <div class="rad-design"></div>
+                    <div class="rad-text">6</div>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="checkbox"><b>Quelles couleurs :</b></label>
+              <div class="col-md-4">
+                <ul class="ks-cboxtags">
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-0" value="rouge">
+                    <label for="checkbox-0"><div class="pion pion-rouge"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-1" value="bleu">
+                    <label for="checkbox-1"><div class="pion pion-bleu"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-2" value="vert">
+                    <label for="checkbox-2"><div class="pion pion-vert"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-3" value="jaune">
+                    <label for="checkbox-3"><div class="pion pion-jaune"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-4" value="violet">
+                    <label for="checkbox-4"><div class="pion pion-violet"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-5" value="orange">
+                    <label for="checkbox-5"><div class="pion pion-orange"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-6" value="rose">
+                    <label for="checkbox-6"><div class="pion pion-rose"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-7" value="noir">
+                    <label for="checkbox-7"><div class="pion pion-noir"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-8" value="blanc">
+                    <label for="checkbox-8"><div class="pion pion-blanc"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-9" value="gris">
+                    <label for="checkbox-9"><div class="pion pion-gris"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-10" value="marron">
+                    <label for="checkbox-10"><div class="pion pion-marron"></div></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" name="checkbox" id="checkbox-11" value="cyan">
+                    <label for="checkbox-11"><div class="pion pion-cyan"></div></label>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="range"><b>Nombre d'essais :</b></label>
+              <div class="col-md-4 range">
+                <div class="form-range range__slider">
+                  <input type="range" step="1">
+                </div>
+                <div class="form-range range__value">
+                  <span></span>            
+                </div>
+              </div>
+            </div>
+  
           </fieldset>
         </form>
       </div>
@@ -97,6 +201,8 @@
     </div>
 
     <!-- Liens vers les fichiers JS de Bootstrap -->
+    <script src="https://kit.fontawesome.com/4d8437e2fd.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
       crossorigin="anonymous"></script>
@@ -105,6 +211,8 @@
       crossorigin="anonymous"></script>
 
     <!-- Scripts persos -->
+    <script src="range.js">
+    </script>
     <script src="display.js"></script>
     <script src="gameSolo.js"></script>
     <script src="tries.js"></script>

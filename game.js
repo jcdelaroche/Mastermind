@@ -1,14 +1,24 @@
 class Game {
     constructor() {
+      this.colors = this.whichColors();
       this.code = this.generateCode();
       this.guesses = [];
       this.maxGuesses = 10;
       this.currentGuess = [];
       this.feedback = [];
     }
+
+    whichColors(){
+      
+    }
   
     generateCode() {
-      // TODO: implémenter la génération du code à deviner
+      let randomCode = [];
+      for (let i = 0; i < 4; i++) {
+        let index = Math.floor(Math.random() * this.colors.length);
+        randomCode.push(colors[index]);
+      }
+      return randomCode;
     }
   
     guess() {
@@ -21,16 +31,5 @@ class Game {
   
     isGameOver() {
       // TODO: vérifier si le jeu est terminé
-    }
-        
-    playSolo() {
-        while (!this.isGameOver()) {
-          const guess = this.generateGuess();
-          this.guesses.push(guess);
-          this.currentGuess = guess;
-          this.evaluateGuess();
-        }
-        
-        this.showGameOverMessage();
     }
 }
