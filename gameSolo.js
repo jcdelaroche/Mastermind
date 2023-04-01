@@ -1,5 +1,10 @@
-// Définir les couleurs possibles
-const colors = ["rouge", "bleu", "vert", "jaune", "orange", "violet"];
+// Création d'un tableau avec les noms de couleurs pour le code secret
+const colorsCode = ["rouge", "bleu", "vert", "jaune", "orange", "violet"];
+
+// Création d'un tableau avec les noms de couleurs à créer
+const colorsToCreate = ["rouge", "bleu", "vert", "jaune", "orange", "violet", "rose", "noir", "blanc", "gris", "marron", "cyan"];
+
+const maxGuesses = 10;
 let code_secret = generateCode();
 let index_proposition = 0;
 
@@ -7,8 +12,8 @@ let index_proposition = 0;
 function generateCode() {
   let randomCode = [];
   for (let i = 0; i < 4; i++) {
-    let index = Math.floor(Math.random() * colors.length);
-    randomCode.push(colors[index]);
+    let index = Math.floor(Math.random() * colorsCode.length);
+    randomCode.push(colorsCode[index]);
   }
   return randomCode;
 }
@@ -97,8 +102,8 @@ function selectionnerPion(pion) {
   let tab_code = [].slice.call(document.getElementsByClassName("code"));
   let indexCode = 0;
   tab_code.forEach((e) => {
-    colors.forEach((color) => {
-      if (e.classList.contains(`pion-${color}`)) {
+    colorsToCreate.forEach((colorsToCreate) => {
+      if (e.classList.contains(`pion-${colorsToCreate}`)) {
         indexCode++;
       }
     });
@@ -110,7 +115,7 @@ function selectionnerPion(pion) {
 
 function getColor(element) {
   let colorPion = "";
-  colors.forEach((e) => {
+  colorsToCreate.forEach((e) => {
     if (element.classList.contains(`pion-${e}`)) {
       colorPion = e;
     }

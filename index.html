@@ -103,56 +103,7 @@
             <div class="form-group">
               <label class="col-md-4 control-label" for="checkbox"><b>Quelles couleurs :</b></label>
               <div class="col-md-4">
-                <ul class="ks-cboxtags">
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-0" value="rouge">
-                    <label for="checkbox-0"><div class="pion pion-rouge"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-1" value="bleu">
-                    <label for="checkbox-1"><div class="pion pion-bleu"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-2" value="vert">
-                    <label for="checkbox-2"><div class="pion pion-vert"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-3" value="jaune">
-                    <label for="checkbox-3"><div class="pion pion-jaune"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-4" value="violet">
-                    <label for="checkbox-4"><div class="pion pion-violet"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-5" value="orange">
-                    <label for="checkbox-5"><div class="pion pion-orange"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-6" value="rose">
-                    <label for="checkbox-6"><div class="pion pion-rose"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-7" value="noir">
-                    <label for="checkbox-7"><div class="pion pion-noir"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-8" value="blanc">
-                    <label for="checkbox-8"><div class="pion pion-blanc"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-9" value="gris">
-                    <label for="checkbox-9"><div class="pion pion-gris"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-10" value="marron">
-                    <label for="checkbox-10"><div class="pion pion-marron"></div></label>
-                  </li>
-                  <li>
-                    <input type="checkbox" name="checkbox" id="checkbox-11" value="cyan">
-                    <label for="checkbox-11"><div class="pion pion-cyan"></div></label>
-                  </li>
-                </ul>
+                <ul class="ks-cboxtags"></ul>
               </div>
             </div>
             <div class="form-group">
@@ -166,18 +117,20 @@
                 </div>
               </div>
             </div>
+
+            <!-- Button -->
+            <div class="form-group">
+              <label class="col-md-4 control-label" for="createGame"></label>
+              <div class="col-md-4">
+                <button id="createGame" name="createGame" class="btn btn-primary">Créer la partie</button>
+              </div>
   
           </fieldset>
         </form>
       </div>
       <div id="game" class="hidden">
         <h3>Choisissez une combinaison de pions:</h3>
-        <div class="pion pion-rouge" onclick="selectionnerPion('rouge')"></div>
-        <div class="pion pion-bleu" onclick="selectionnerPion('bleu')"></div>
-        <div class="pion pion-vert" onclick="selectionnerPion('vert')"></div>
-        <div class="pion pion-jaune" onclick="selectionnerPion('jaune')"></div>
-        <div class="pion pion-orange" onclick="selectionnerPion('orange')"></div>
-        <div class="pion pion-violet" onclick="selectionnerPion('violet')"></div>
+        <div id="pionsToGuess"></div>
         <div id="guesser">
           <div class="pion code" id="code1"></div>
           <div class="pion code" id="code2"></div>
@@ -192,7 +145,7 @@
             <div class="col-md-6">
               <h4>Essais :</h4>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="title-result">
               <h4>Résultats :</h4>
             </div>
           </div>
@@ -210,12 +163,14 @@
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
 
-    <!-- Scripts persos -->
-    <script src="range.js">
-    </script>
-    <script src="display.js"></script>
+    <!-- Scripts persos -->    
     <script src="gameSolo.js"></script>
+
+    <script src="range.js"></script>
+    <script src="display.js"></script>
     <script src="tries.js"></script>
+    <script src="checkboxes.js"></script>
+    <script src="selection.js"></script>
 </body>
 
 </html>
