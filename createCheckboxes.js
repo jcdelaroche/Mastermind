@@ -1,3 +1,5 @@
+const colorsToCreate = ["rouge", "bleu", "vert", "jaune", "orange", "violet", "rose", "noir", "blanc", "gris", "marron", "cyan"];
+
 // Sélection de l'élément <ul> dans lequel on va ajouter les éléments <li>
 const ul = document.querySelector("ul");
 

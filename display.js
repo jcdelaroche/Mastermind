@@ -1,6 +1,6 @@
 let solo = document.getElementById("solo");
 let multi = document.getElementById("multi");
-let soloDiv = document.getElementById("game");
+let game = document.getElementById("game");
 let room = document.getElementById("room");
 let buttons = document.getElementById("buttons");
 let returnButton = document.getElementById("returnButton");
@@ -9,9 +9,10 @@ let title = document.getElementById("title");
 let gameContainer = document.getElementById("gameContainer");
 let settings = document.getElementById("settings");
 let createGame = document.getElementById("createGame");
+let startGame = document.getElementById("startGame");
 
 solo.addEventListener("click", () => {
-  soloDiv.style.display = "block";
+  settings.style.display = "block";
   returnDiv.style.display = "block";
   buttons.style.display = "none";
   title.style.display = "none";
@@ -25,7 +26,7 @@ multi.addEventListener("click", () => {
   gameContainer.style.display = "block";
 });
 returnButton.addEventListener("click", () => {
-  soloDiv.style.display = "none";
+  game.style.display = "none";
   room.style.display = "none";
   returnDiv.style.display = "none";
   buttons.style.display = "flex";
@@ -36,4 +37,10 @@ returnButton.addEventListener("click", () => {
 createGame.addEventListener("click", () => {
   room.style.display = "none";
   settings.style.display = "block";
+});
+startGame.addEventListener("click", () => {
+  settings.style.display = "none";
+  game.style.display = "block";
+  const currentGame = new Game("solo");
+  currentGame.createBoard(currentGame);
 });

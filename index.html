@@ -120,9 +120,9 @@
 
             <!-- Button -->
             <div class="form-group">
-              <label class="col-md-4 control-label" for="createGame"></label>
+              <label class="col-md-4 control-label" for="startGame"></label>
               <div class="col-md-4">
-                <button id="createGame" name="createGame" class="btn btn-primary">Créer la partie</button>
+                <button type="button" id="startGame" name="startGame" class="btn btn-primary">Créer la partie</button>
               </div>
   
           </fieldset>
@@ -132,12 +132,6 @@
         <h3>Choisissez une combinaison de pions:</h3>
         <div id="pionsToGuess"></div>
         <div id="guesser">
-          <div class="pion code" id="code1"></div>
-          <div class="pion code" id="code2"></div>
-          <div class="pion code" id="code3"></div>
-          <div class="pion code" id="code4"></div>
-          <button type="button" class="btn btn-danger" style="margin-right: 10px;" onclick="effacer()">Effacer</button>
-          <button type="button" class="btn btn-success" onclick="verifier()">Vérifier</button>
         </div>
         <!-- Créer les lignes pour les propositions -->
         <div id="tries">
@@ -164,13 +158,14 @@
       crossorigin="anonymous"></script>
 
     <!-- Scripts persos -->    
-    <script src="gameSolo.js"></script>
+    <script src="game.js"></script>
 
     <script src="range.js"></script>
     <script src="display.js"></script>
-    <script src="tries.js"></script>
-    <script src="checkboxes.js"></script>
-    <script src="selection.js"></script>
+    <script src="createTries.js"></script>
+    <script src="createCheckboxes.js"></script>
+    <script src="createPions.js"></script>
+    <script src="createCurrentGuess.js"></script>
 </body>
 
 </html>

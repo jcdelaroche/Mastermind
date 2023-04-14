@@ -1,10 +1,6 @@
 // Création d'un tableau avec les noms de couleurs pour le code secret
 const colorsCode = ["rouge", "bleu", "vert", "jaune", "orange", "violet"];
 
-// Création d'un tableau avec les noms de couleurs à créer
-const colorsToCreate = ["rouge", "bleu", "vert", "jaune", "orange", "violet", "rose", "noir", "blanc", "gris", "marron", "cyan"];
-
-const maxGuesses = 10;
 let code_secret = generateCode();
 let index_proposition = 0;
 
@@ -123,11 +119,11 @@ function getColor(element) {
   return colorPion;
 }
 
-function effacer() {
-  code1.classList.remove(`pion-${getColor(code1)}`);
-  code2.classList.remove(`pion-${getColor(code2)}`);
-  code3.classList.remove(`pion-${getColor(code3)}`);
-  code4.classList.remove(`pion-${getColor(code4)}`);
+function effacer(nbCodes) {
+  for (let i = 0; i < nbCodes; i++) {
+    let code = document.getElementById(`code${i + 1}`);
+    code.classList.remove(`pion-${getColor(code)}`);
+  }
 }
 
 function alertNEI() {
@@ -139,29 +135,5 @@ function alertNEI() {
   return div;
 }
 
-function endGame(){
-  alert(`Félicitations ! Vous avez trouvé le code secret en ${index_proposition} essais.`);
-  reset();
-}
-
-function gameOver(){
-  alert("Oups, vous avez perdu");
-  reset();
-}
-
-function reset(){
-  for (let i = 1; i < maxGuesses + 1; i++) {
-    for (let j = 1; j < 5; j++) {
-      let tryTmp = document.querySelector(
-        `#prop${i} .pion:nth-of-type(${j})`
-      );
-      tryTmp.classList.remove(`pion-${getColor(tryTmp)}`);
-    }
-    document.getElementById(`resultat${i}`).textContent = "";
-  }
-  code_secret = generateCode();
-  index_proposition = 0;
-  console.log(code_secret);
-}
 
 console.log(code_secret);
