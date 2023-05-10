@@ -3,7 +3,7 @@ import Home from "./Pages/Home";
 import Error from "./Pages/Error";
 import { ColorsProvider } from "./Provider/ColorsProvider";
 import Settings from "./Pages/Settings";
-import Game from "./Pages/Game";
+import Board from "./Pages/Board";
 import { SettingsProvider } from "./Provider/SettingsProvider";
 
   function App() {
@@ -15,7 +15,7 @@ import { SettingsProvider } from "./Provider/SettingsProvider";
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/game/settings" element={<Settings />} />
-            <Route path="/game" element={<Game />} />
+            <Route path="/game" element={<Board />} />
             <Route path="*" element={<Error code="404" />} />
           </Routes>
         </SettingsProvider>

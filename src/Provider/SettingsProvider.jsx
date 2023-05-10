@@ -4,28 +4,28 @@ import { SettingsContext } from '../Context/SettingsContext';
 
 export const SettingsProvider = ({ children }) => {
 
-  const [pionCount, setPionCount] = useState(4);
-  const [colorSelected, setSelectedColor] = useState(["red", "blue", "green", "yellow", "orange", "violet"]);
-  const [tryCount, setTryCount] = useState(10);
-  const [playerCount, setPlayerCount] = useState(1);
+  const [codeLength, setCodeLength] = useState(4); // Nombre de pions à deviner
+  const [colorEnabled, setColorEnabled] = useState(["red", "blue", "green", "yellow", "orange", "violet"]); // Couleurs activés sur la partie
+  const [maxGuesses, setMaxGuesses] = useState(10); // Nombre d'essais maximum
+  const [playerCount, setPlayerCount] = useState(1); // Nombre de joueurs à la partie
   const [settings, setSettings] = useState({
-    pionCount: 4,
-    colorSelected: ["red", "blue", "green", "yellow", "orange", "violet"],
-    tryCount: 10,
+    codeLength: 4,
+    colorEnabled: ["red", "blue", "green", "yellow", "orange", "violet"],
+    maxGuesses: 10,
     playerCount: 1
   });
 
   useEffect(() => {
     setSettings({
-      pionCount: pionCount,
-      colorSelected: colorSelected,
-      playerCount: playerCount,
-      tryCount: tryCount
+      codeLength: codeLength,
+      colorEnabled: colorEnabled,
+      maxGuesses: maxGuesses,
+      playerCount: playerCount
     });
-  }, [pionCount, colorSelected, tryCount, playerCount]);
+  }, [codeLength, colorEnabled, maxGuesses, playerCount]);
 
   return (
-    <SettingsContext.Provider value={{ pionCount, setPionCount, colorSelected, setSelectedColor, tryCount, setTryCount, playerCount, setPlayerCount, settings }}>
+    <SettingsContext.Provider value={{ codeLength, setCodeLength, colorEnabled, setColorEnabled, maxGuesses, setMaxGuesses, playerCount, setPlayerCount, settings }}>
       {children}
     </SettingsContext.Provider>
   );
