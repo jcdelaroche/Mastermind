@@ -5,11 +5,11 @@ import { ColorsContext } from '../../Context/ColorsContext';
 function ColorSettings() {
 
   const { colorsAvailable } = useContext(ColorsContext);
-  const { colorSelected, setSelectedColor } = useContext(SettingsContext);
+  const { colorEnabled, setColorEnabled } = useContext(SettingsContext);
 
   const toggleColor = ({ target: { value } }) => {
-    if(colorSelected.includes(value)) return setSelectedColor(colorSelected.filter(color => color !== value))
-    else return setSelectedColor([...colorSelected, value])
+    if(colorEnabled.includes(value)) return setColorEnabled(colorEnabled.filter(color => color !== value))
+    else return setColorEnabled([...colorEnabled, value])
   }
 
   return (
@@ -22,7 +22,7 @@ function ColorSettings() {
               return (
                 <div className="color-settings" key={index} >
                   <label htmlFor={`pion-${color}`}>
-                    <input type="checkbox" id={`pion-${color}`} value={color} checked={colorSelected.includes(color)} onChange={toggleColor} />
+                    <input type="checkbox" id={`pion-${color}`} value={color} checked={colorEnabled.includes(color)} onChange={toggleColor} />
                     <span className={`pion ${color}`}></span>
                   </label>
                 </div>

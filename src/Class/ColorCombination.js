@@ -15,22 +15,13 @@ export class ColorCombination {
     try (colors) {
         let acc = this.explode();
         const result = colors.explode().map((color, index) => {
-            if(this.explode()[index] == color) {
-                acc.splice(index, 1)
-                return "correct"
-            };
-            if(this.explode().includes(color)) {
-                if(acc.includes(color)){
-                    acc.splice(acc.indexOf(color), 1)
-                    return "missed"
-                }  else {
-                    return "incorrect"
-                }
+            if(this.explode()[index] === color) {
+                acc.splice(acc.indexOf(color), 1);
+                return "correct";
             };
             return "incorrect";
-        })
-
-        return { result: (!result.includes('missed') && !result.includes('incorrect')) ? true : false, details: result }
+        }).map((e, index) => (e === "incorrect" && acc.includes(colors.explode()[index])) ? "missed" : e);
+        return { result: (!result.includes('missed') && !result.includes('incorrect')) ? true : false, details: result };
     }
 
     complete() {

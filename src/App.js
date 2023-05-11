@@ -16,6 +16,7 @@ import { SettingsProvider } from "./Provider/SettingsProvider";
             <Route path="/" element={<Home />} />
             <Route path="/game/settings" element={<Settings />} />
             <Route path="/game" element={<Board />} />
+            <Route path="/error" element={<Error code="500" />} />
             <Route path="*" element={<Error code="404" />} />
           </Routes>
         </SettingsProvider>

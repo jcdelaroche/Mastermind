@@ -20,9 +20,7 @@ export class Games {
 
 
     addGuess(combinaison, result) {
-
         let filled = false;
-
         this.guesses = (this.guesses).map((guess) => {
             if((guess.colors.getCode()[0].color === null) && !filled) {
                 filled = true;
@@ -33,17 +31,40 @@ export class Games {
             }
             return guess;
         })
-    
     }
 
     getGuesses() {
         return this.guesses;
     }
 
+    getAttemptsLength() {
+        return this.guesses.filter((guess) => {
+            return guess.colors.getCode()[0].color !== null;
+        }).length;
+    }
+
+    getGuessesRemaining() {
+        return this.maxGuesses - this.guesses.filter((guess) => {
+            return guess.colors.getCode()[0].color !== null;
+        }).length;
+    }
+
     win(){
 
-        console.log("Bravo vous avez gagné !");
+    }
 
+    loose(){
+        
+    }
+
+    reset(){
+        this.guesses = [...Array(this.maxGuesses)].map((x, index) => {
+            return {
+                colors: this.generateEmptyCode(),
+                details: null
+            };
+        });
+        this.winningCode = this.generateCode();
     }
 
     setWinningCode(winningCode){

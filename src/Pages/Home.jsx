@@ -2,12 +2,18 @@ import { Link } from "react-router-dom";
 import Title from "../Components/Text/Title";
 
 function Home() {
+
+  const server = () => {
+    console.log("Test")
+  }
+
     return (
       <section className="home">
         <div className="menu">
           <Title />
           <div className="actions">
-            <Link to="/game/settings" test={{test: "test"}}><button>Jouer</button></Link>
+            <Link to="/game/settings"><button>Créer une partie</button></Link>
+            <button onClick={server}>SERVEUR VERT</button>
           </div>
         </div>
       </section>

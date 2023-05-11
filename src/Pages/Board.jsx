@@ -5,6 +5,8 @@ import Title from "../Components/Text/Title";
 import { SettingsContext } from "../Context/SettingsContext";
 import { ColorCombination } from "../Class/ColorCombination";
 import { Games } from "../Class/Games";
+import { GameState } from "../Constant/Constant";
+import { Link } from "react-router-dom";
 
 
 function Board() {
@@ -13,6 +15,10 @@ function Board() {
     const { settings } = useContext(SettingsContext);
     const [refresh, setRefresh] = useState(0)
     const [Game, setGame] = useState(new Games(settings));
+    const [colorSelected, setColorSelected] = useState(null);
+    const [attempt, setAttempt] = useState(0);
+    const [gameState, setGameState] = useState(GameState.PLAYING);
+
 
     /* INITIALISATION DU CODE GAGNANT */
     useEffect(() => {
@@ -39,22 +45,33 @@ function Board() {
 
         if(combinaison.complete()){
             const result = Game.getWinningCode().try(combinaison);
-            
             if(result.result){
                 Game.win()
+                setGameState(GameState.WON);
             } else {
                 Game.addGuess(combinaison, result)
-                setPionsSelected(defaultPionsSelected());
+
+                if(Game.getGuessesRemaining() === 0)
+                {
+                    Game.loose();
+                    setGameState(GameState.LOST);
+                }
             }
-
+            setAttempt((Game.getAttemptsLength() === 0) ? 1 : Game.getAttemptsLength());
+            setPionsSelected(defaultPionsSelected());
             forceUpdate();
-
-        } else {
-            console.log("Il me manque des couleurs");
         }
 
     }
 
+    const handleResetGame = () => {
+        setGameState(GameState.PLAYING);
+        Game.reset();
+    }
+
+    const handleErase = () => {
+        setPionsSelected(defaultPionsSelected());
+    }
 
     /* PION SELECTION */
     const unSelectPion = (index) => {
@@ -63,7 +80,6 @@ function Board() {
             return pionSelected;
         }));
     }
-    const [colorSelected, setColorSelected] = useState(null);
     const onDragStart = ({target: { dataset: { color } }}) => setColorSelected(color);
     const onDragStop = () => setColorSelected();
     const onPionClick = ({target: { dataset: { color } }}) => {
@@ -76,7 +92,6 @@ function Board() {
             return pionSelected;
         }));
     };
-    
     const handleDrop = ({target: {dataset: {index}}}) => {
         setPionsSelected(pionsSelected.map((pionSelected) => {
             if(pionSelected.index === parseInt(index)) pionSelected.color = colorSelected;
@@ -87,12 +102,37 @@ function Board() {
     /* END - PION SELECTION */
 
     return (
-        <div>
+        <>
             <Menu />
             <section className="game">
+
+                {(gameState !== GameState.PLAYING) ? 
+                <div className="win">
+                    <div className="modal">
+                        <div className="header">
+                            <SubTitle color="black" textAlign="center" textShadow="">{(gameState === GameState.WON) ? "Vous avez gagné" : "Vous avez perdu" }</SubTitle>
+                            <SubTitle fontSize="1.5rem" color="black" textAlign="center" textShadow="">Nombre de tentatives : <strong>{attempt}</strong></SubTitle>
+                            <SubTitle fontSize="1.5rem" color="black" textAlign="center" textShadow="">Le code était : </SubTitle>
+                            <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                                {
+                                    Game.getWinningCode().explode().map((code, index) =>
+                                        <span key={index} className={`pion ${code}`} style={{ cursor: "default" }}></span>
+                                    )
+                                }
+                            </div>
+
+                        </div>
+                        <div className="footer">
+                            <button onClick={handleResetGame}>Rejouer</button>
+                            <Link to="/"><button id="modalBack">Retour au menu</button></Link>
+                        </div>
+                    </div>
+                </div> 
+                : null}
+
                 <Title fontSize="3rem" />
                 
-                <SubTitle>Couleurs disponible : {Game.name}</SubTitle>
+                <SubTitle>Couleurs disponible : </SubTitle>
                 <div className="pions-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
                     {
                         settings.colorEnabled.map((color, index) => {
@@ -101,14 +141,21 @@ function Board() {
                     }
                 </div>
                 <SubTitle>Votre choix </SubTitle>
-                <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-                    {
-                        pionsSelected.map((pionSelected, index) =>
-                            <span key={index} onDragOver={handleDragOver} onDrop={handleDrop} data-index={pionSelected.index} className={`pion ${pionSelected.color != null ? pionSelected.color : ""}`} onClick={() => { unSelectPion(pionSelected.index) }}></span>
-                        )
-                    } 
-                </div>
-                <button onClick={handleGuess}>Deviner</button>
+                    <div className="selections">
+                        <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                        {
+                            pionsSelected.map((pionSelected, index) =>
+                                <span key={index} onDragOver={handleDragOver} onDrop={handleDrop} data-index={pionSelected.index} className={`pion ${pionSelected.color != null ? pionSelected.color : ""}`} onClick={() => { unSelectPion(pionSelected.index) }}></span>
+                            )
+                        } 
+                        </div>
+
+                        <div className="actions">
+                            <button onClick={handleGuess}>Vérifier</button>
+                            <button onClick={handleErase}>Effacer</button>
+                        </div>
+                    </div>
+
                 <SubTitle>Essais : </SubTitle>
                 <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
                     <ul style={{ listStyle:"none", display: "flex", flexDirection: "column", gap: "25px" }}>
@@ -118,7 +165,7 @@ function Board() {
                                 {guess.colors.getCode().map((code, i) =>
                                     <div key={i} className="pions-guessed">
                                         <span className={`pion ${code.color != null ? code.color : ""}`} style={{ cursor: "default" }}></span>
-                                        <span className={`guess-result ${(guess.details) ? (guess.details.details[i] != "incorrect") ? guess.details.details[i] : "" : "" }`}></span>
+                                        <span className={`guess-result ${(guess.details) ? (guess.details.details[i] !== "incorrect") ? guess.details.details[i] : "" : "" }`}></span>
                                     </div>
                                 )}
                             </li>
@@ -127,7 +174,7 @@ function Board() {
                     </ul>
                 </div>
             </section>
-        </div>
+        </>
     );
 
 }

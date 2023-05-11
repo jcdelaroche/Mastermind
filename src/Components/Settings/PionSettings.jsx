@@ -3,9 +3,9 @@ import { SettingsContext } from "../../Context/SettingsContext";
 
 function PionSettings() {
 
-    const { pionCount, setPionCount } = useContext(SettingsContext);
+    const { codeLength, setCodeLength } = useContext(SettingsContext);
 
-    const handlePion = ({ target: { value } }) => setPionCount(parseInt(value));
+    const handlePion = ({ target: { value } }) => setCodeLength(parseInt(value));
 
     return (
         <form className="pions-settings">
@@ -14,7 +14,7 @@ function PionSettings() {
                     return (
                         <div className="pion-settings" key={index}>
                             <label htmlFor={`pion-settings-${element}`} className="rad-label">
-                                <input type="radio" className="rad-input" checked={pionCount === element} onChange={handlePion} id={`pion-settings-${element}`} value={element}/>
+                                <input type="radio" className="rad-input" checked={codeLength === element} onChange={handlePion} id={`pion-settings-${element}`} value={element}/>
                                 <div className="rad-design"></div>
                                 <div className="rad-text">{element}</div>
                             </label>
