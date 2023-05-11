@@ -341,6 +341,67 @@ section.game {
     }
 }
 
+section.lobby {
+    height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 0;
+    gap: 50px;
+
+    .players {
+        display: flex;
+        gap: 45px;
+
+        .player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            img{
+                height: 100px;
+                width: 100px;
+                border-radius: 50%;
+                background-color: red;
+            }
+        }
+    }
+
+    .room {
+        display: flex;
+        gap: 10px;
+        span {
+            font-size: 1rem;
+            padding: 5px;
+            border-radius: 5px;
+            background-color: rgb(230, 230, 230);
+        }
+    }
+
+    .play {
+        color: white;
+        cursor: pointer;
+        border-radius: 10px;
+        outline: none;
+        border: none;
+        transition: 0.2s ease-in-out;
+        background-color: green;
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+        width: auto;
+        margin: 0.5rem 1rem 0 0;
+        height: 3rem;
+        &:hover:enabled {
+            background-color:green;
+        }
+    }
+
+}
+
 .back{
     button {
         color: white;

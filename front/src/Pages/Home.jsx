@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import Title from "../Components/Text/Title";
 
-function Home() {
+/*
 
-  const server = () => {
-    console.log("Test")
-  }
+  import io from "socket.io-client";
+  const socket = io.connect("http://localhost:3001");
+
+*/
+
+
+function Home() {
 
     return (
       <section className="home">
@@ -13,7 +17,6 @@ function Home() {
           <Title />
           <div className="actions">
             <Link to="/game/settings"><button>Créer une partie</button></Link>
-            <button onClick={server}>SERVEUR VERT</button>
           </div>
         </div>
       </section>

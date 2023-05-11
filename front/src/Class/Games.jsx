@@ -2,12 +2,11 @@ import { ColorCombination } from "./ColorCombination";
 
 export class Games {
 
-    constructor({codeLength, colorEnabled, maxGuesses, playerCount}){
+    constructor({codeLength, colorEnabled, maxGuesses}){
 
         this.codeLength = codeLength;
         this.colorEnabled = colorEnabled;
         this.maxGuesses = maxGuesses;
-        this.playerCount = playerCount;
 
         this.guesses = [...Array(this.maxGuesses)].map((x, index) => {
             return {
