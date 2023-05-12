@@ -10,15 +10,16 @@ import io from "socket.io-client";
 function Play() {
 
     let navigate = useNavigate(); 
-    // const { socket } = useContext(SocketContext);
+
     const { settings } = useContext(SettingsContext);
 
     const [socket, setSocket] = useState(io(URL.SOCKET));
 
     const handlePlay = () => {
+        socket.off("roomCreated");
         socket.emit("createRoom", settings);
-        socket.on("roomCreated", (room) => {
-            navigate(`${INTERNAL_URL.LOBBY}${room}`)
+        socket.on("roomCreated", (response) => {
+            navigate(`${INTERNAL_URL.LOBBY}${response.room.id}`, {state: { response }})
         })
     }
 

@@ -3,27 +3,30 @@ module.exports = class Room {
     constructor({ player, id, settings }){
         this.id = id;
         this.settings = settings;
-        this.player = {
-            id: null,
-            username: `Guest#${Math.floor(Math.random() * 1000)}`
-        }
-        this.host = {
-            id: player,
-            username: `Guest#${Math.floor(Math.random() * 1000)}`
-        }
+        this.player = null
+        this.host = player
+        this.messages = [];
     }
 
     hasPlayer(player){
-        return (this.player.id === player || this.host.id === player)
+        return ((this.player != null && this.player === player) || this.host === player)
     }
 
     join(player){
-        if(this.player.id != null) return false;
-        this.player.id = player;
+        if(this.player != null) return false;
+        this.player = player;
     }
 
     leave(player){
-        if(this.player.id === player) this.player.id = null;
+        if(this.player === player) this.player = null;
+    }
+
+    addMessage(message){
+        this.messages.push(message);
+    }
+    
+    getMessages(){
+        return this.messages;
     }
 
 }

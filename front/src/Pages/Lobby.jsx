@@ -1,43 +1,88 @@
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SubTitle from "../Components/Text/SubTitle";
 import { INTERNAL_URL, URL } from "../Constant/Constant";
 import Menu from "../Components/Buttons/Menu";
 import Title from "../Components/Text/Title";
 
-import { useContext, useEffect, useState } from "react";
-import { SocketContext } from "../Context/SocketContext";
+import { useEffect, useState } from "react";
 
 import io from "socket.io-client";
 
 export default function Lobby() {
 
     const [socket, setSocket] = useState(io(URL.SOCKET));
-    let navigate = useNavigate(); 
+    const [room, setRoom] = useState({host: null, player: null});
+    const [host, setHost] = useState(false);
+
+    const navigate = useNavigate(); 
+    const location = useLocation();
+
     const { room_id } = useParams();
 
-    // const { socket } = useContext(SocketContext);
-
-    const [host, setHost] = useState("Vous");
-    const [player, setPlayer] = useState("Ordinateur");
-
     useEffect(() => {
-        
-        socket.emit("joinRoom", room_id);
 
-        socket.on("joinRoomResponse", (response) => {
-            switch(response.status){
-                case "notFound":
-                    navigate(INTERNAL_URL.ROOT)
-                    break;
-            }
-            console.log(response.room);
+        const button = document.querySelector(".back").getElementsByTagName("button")[0]
+        button.removeEventListener("click", () => {});
+        button.addEventListener("click", () => socket.emit("leaveRoom", room_id));
+
+        if(location.state === null){
+            socket.off("joinRoomResponse");
+            socket.emit("joinRoom", room_id);
+    
+            socket.on("joinRoomResponse", (response) => {
+                switch(response.status){
+                    case "notFound":
+                        navigate(INTERNAL_URL.HOME);
+                        break;
+                    case "full":
+                        navigate(INTERNAL_URL.HOME);
+                        break;
+                    case "success":
+                        setRoom(response.room);
+                        break;
+                }
+            })
+        } else {
+            setHost(true);
+            setRoom(location.state.response.room);
+            socket.emit("updatePlayer", location.state.response.room.host.id);
+        }
+
+        socket.off("roomUpdated");
+        socket.on("roomUpdated", (newRoom) => {
+            setRoom(newRoom);
         })
 
+        socket.off("roomDeleted");
+        socket.on("roomDeleted", () => {
+            navigate(INTERNAL_URL.ROOT);
+        })
+
+        socket.off("leaveRoomResponse");
+        socket.on("leaveRoomResponse", (response) => {
+            if(response.status === "notFound"){
+                navigate(INTERNAL_URL.ROOT);
+            }
+            navigate(INTERNAL_URL.ROOT);
+        })
+
+        socket.off("gameStarting");
+        socket.on("gameStarting", (response) => {
+            if(response.status === "success"){
+                navigate(`${INTERNAL_URL.GAME}${response.room.id}`, {state: {response, host}});
+            }
+        })
 
     }, [])
+    
 
+    const handlePlay = () => {
+        socket.emit("startGame", room.id);
+
+
+    }
+    
     const copyClipboard = () => {
-        //Select the text
         const url = document.querySelector(".room span");
         const range = document.createRange();
         range.selectNode(url);
@@ -46,6 +91,9 @@ export default function Lobby() {
         navigator.clipboard.writeText(`${URL.LOBBY}${room_id}`);
     }
 
+    const handleChangeAvatar = (direction) => {
+        socket.emit("updateAvatar", {room_id: room.id, direction, host});
+    }
 
     return (
         <>
@@ -57,21 +105,32 @@ export default function Lobby() {
                 </div>
                 <div className="players">
                     <div className="player">
-                        <img src="" alt="" />
-                        <span>{host}</span>
-                        
+                        <div className="avatarMenu">
+                            {host ? <button className="imgButtons previous" onClick={() => {handleChangeAvatar("previous")}}>&lsaquo;</button> : undefined}
+                            <img src={(room.host) ? room.host.avatar : URL.DEFAULT_AVATAR}  alt="" />
+                            {host ? <button className="imgButtons next" onClick={() => {handleChangeAvatar("next")}}>&rsaquo;</button> : undefined}
+                        </div>
+
+                        <span>{(room.host) ? room.host.username : "Vous"}</span>
                     </div>
                     <div className="player">
-                        <img src="" alt="" />
-                        <span>{player}</span>
+                        <div className="avatarMenu">
+                            {!host ? <button className="imgButtons previous" onClick={() => {handleChangeAvatar("previous")}}>&lsaquo;</button> : undefined}
+                            <img src={(room.player) ? room.player.avatar : URL.DEFAULT_AVATAR} alt="" />
+                            {!host ? <button className="imgButtons next" onClick={() => {handleChangeAvatar("next")}}>&rsaquo;</button> : undefined}
+                        </div>
+                        
+                        <span>{(room.player) ? room.player.username : "Ordinateur"}</span>
                     </div>
                 </div>
+                {host ?
                 <div className="room">
                     <span onClick={copyClipboard}>{`${URL.LOBBY}${room_id}`}</span>
                     <button onClick={copyClipboard}>Copier</button>
                 </div>
+                : <span>En attente de l'hôte...</span>}
 
-                <Link to={`${URL.GAME}${room_id}`}><button className="play">Jouer</button></Link>
+                {host ? <button className="play" onClick={handlePlay}>Jouer</button> : undefined}
 
             </section>
 

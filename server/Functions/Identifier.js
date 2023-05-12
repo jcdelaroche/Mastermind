@@ -1,3 +1,5 @@
+
+
 module.exports = function Identifier() {
 
     const first = ["chat", "chien", "oiseau", "souris", "lapin", "tigre", "lion", "ours", "renard", "coyote", "loup", "zèbre", "gazelle", "girafe", "éléphant", "hippopotame", "crocodile", "alligator", "serpent", "lézard", "iguane", "grenouille", "tortue", "phoque", "pingouin", "ours polaire", "requin", "baleine", "dauphin", "orque", "puma", "panthère", "jaguar", "léopard", "hyène", "rhinocéros", "hippocampe", "méduse", "étoile de mer", "mouette", "corbeau", "hibou", "perroquet", "pigeon", "poule", "coq", "canard", "oie", "cygne"]

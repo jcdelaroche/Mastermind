@@ -5,6 +5,7 @@ export const GameState = {
 };
 
 export const URL = {
+    DEFAULT_AVATAR: 'http://localhost:3001/assets/avatars/01.png',
     ROOT: 'http://localhost:3000',
     SOCKET: 'http://localhost:3001',
     LOBBY: `http://localhost:3000/game/lobby/`,

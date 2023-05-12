@@ -104,7 +104,7 @@ function Board() {
     return (
         <>
             <Menu />
-            <section className="game">
+            <section className="board">
 
                 {(gameState !== GameState.PLAYING) ? 
                 <div className="win">
@@ -131,16 +131,17 @@ function Board() {
                 : null}
 
                 <Title fontSize="3rem" />
-                
-                <SubTitle>Couleurs disponible : </SubTitle>
-                <div className="pions-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-                    {
-                        settings.colorEnabled.map((color, index) => {
-                            return <span data-color={color} onClick={onPionClick} onDragStart={onDragStart} onDragEnd={onDragStop} key={index} className={`pion ${color}`} draggable></span>
-                        })
-                    }
-                </div>
-                <SubTitle>Votre choix </SubTitle>
+                <div className="game">
+                    
+                    <SubTitle>Couleurs disponible : </SubTitle>
+                    <div className="pions-container" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                        {
+                            settings.colorEnabled.map((color, index) => {
+                                return <span data-color={color} onClick={onPionClick} onDragStart={onDragStart} onDragEnd={onDragStop} key={index} className={`pion ${color}`} draggable></span>
+                            })
+                        }
+                    </div>
+                    <SubTitle>Votre choix </SubTitle>
                     <div className="selections">
                         <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
                         {
@@ -156,22 +157,27 @@ function Board() {
                         </div>
                     </div>
 
-                <SubTitle>Essais : </SubTitle>
-                <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
-                    <ul style={{ listStyle:"none", display: "flex", flexDirection: "column", gap: "25px" }}>
-                        {
-                            (Game.getGuesses()).map((guess, index) =>
-                            <li key={index} className="pions-selection-guessed">
-                                {guess.colors.getCode().map((code, i) =>
-                                    <div key={i} className="pions-guessed">
-                                        <span className={`pion ${code.color != null ? code.color : ""}`} style={{ cursor: "default" }}></span>
-                                        <span className={`guess-result ${(guess.details) ? (guess.details.details[i] !== "incorrect") ? guess.details.details[i] : "" : "" }`}></span>
-                                    </div>
-                                )}
-                            </li>
-                            )
-                        } 
-                    </ul>
+                    <SubTitle>Essais : </SubTitle>
+                    <div className="pions-played" style={{ margin: "20px 0", display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+                        <ul style={{ listStyle:"none", display: "flex", flexDirection: "column", gap: "25px" }}>
+                            {
+                                (Game.getGuesses()).map((guess, index) =>
+                                <li key={index} className="pions-selection-guessed">
+                                    {guess.colors.getCode().map((code, i) =>
+                                        <div key={i} className="pions-guessed">
+                                            <span className={`pion ${code.color != null ? code.color : ""}`} style={{ cursor: "default" }}></span>
+                                            <span className={`guess-result ${(guess.details) ? (guess.details.details[i] !== "incorrect") ? guess.details.details[i] : "" : "" }`}></span>
+                                        </div>
+                                    )}
+                                </li>
+                                )
+                            } 
+                        </ul>
+                    </div>
+                </div>
+
+                <div className="chat">
+
                 </div>
             </section>
         </>
