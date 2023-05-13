@@ -3,29 +3,45 @@
 @import "./Styles/board.scss";
 @import "./Styles/settings.scss";
 
-section.home {
-
+section {
+    min-height: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    padding: 50px;
+}
+
+section.home {
+
+    @media screen and (max-width: 768px) {
+        align-items: flex-start;
+    }
 
     .menu {
 
-        // background-color: rgba(255, 250, 255, 0.55);
+        display: flex;
+        flex-direction: column;
+        gap: 45px;
+
         padding: 20px 15px;
         border-radius: 10px;
-        width: 50%;
+
+        h1 {
+            font-size: 5rem !important;
+            transition: all 0.4s ease-in-out;
+
+            @media screen and (max-width: 768px) {
+                font-size: 3rem !important;
+            }
+
+            @media screen and (max-width: 480px) {
+                font-size: 2rem !important;
+            }
+        }
 
         a {
             text-align: center;
-        }
-
-        .actions {
-            margin-top: 20px;
-            display: flex;
-            justify-content: space-around;
-
             button {
                 color: white;
                 cursor: pointer;
@@ -34,43 +50,101 @@ section.home {
                 border: none;
                 transition: 0.2s ease-in-out;
                 background-color: #2ecc71;
-                font-size: 2rem;
+                font-size: 1.5rem;
                 padding: 1rem 2rem;
-                margin-top: 2rem;
-                width: 18rem;
                 &:hover:enabled {
                     background-color:#27ae60;
                 }
-            }
 
-            :nth-child(2) {
-                button {
-                    background-color: #e74c3c;
-                    &:hover {
-                        background-color: #c0392b;
-                    }
+                // media
+                @media screen and (max-width: 768px) {
+                    font-size: 1rem;
+                    padding: 0.5rem 1rem;
                 }
             }
         }
+
     }
 }
 
 section.settings {
 
-    height: 100vh;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    padding: 100px 0;
-
     .settings-container {
-
-        width: 50%;
 
         display: flex;
         flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
         gap: 20px;
+
+        .settings-header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .settings-body {
+            hr {
+                width: 100%;
+                margin: 20px 0;
+            }
+
+            .gamemode-settings {
+                display: flex;
+                justify-content: space-around;
+                padding: 20px 0;
+
+                // media
+                @media screen and (max-width: 768px) {
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 20px;
+                }
+
+                label {
+                    h2 {
+                        font-size: 1.5rem;
+                        margin-bottom: 10px;
+                    }
+                    input {
+                        display: none;
+                        &:checked + .card {
+                            transform: scale(1.1);
+                            background-color: #bebebe;
+                        }
+                    }
+
+                    .card {
+                        background-color: #fff;
+                        padding: 10px 20px; border-radius: 10px;
+                        width: 300px;
+                        height: 150px;
+                        cursor: pointer;
+                        transition: 0.3s ease-in-out;
+                        &:hover {
+                            transform: scale(1.025);
+                        }
+                    }
+                    
+                }
+            }
+        }
+
+        .settings-footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                width: 75%;
+                text-align: center;
+            }
+        }
 
         .color-settings{
             display: flex;
@@ -114,22 +188,6 @@ section.settings {
             }
         }
 
-        .players-settings {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-around;
-            margin: 20px 0;
-
-            .player-settings {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-            }
-        }
-
         .try-settings {
             display: flex;
             gap: 10px;
@@ -164,7 +222,7 @@ section.settings {
             margin: 10px;
         }
           
-          .rad-label {
+        .rad-label {
             place-content: center;
           
             margin: 0;
@@ -421,14 +479,14 @@ section.lobby {
         outline: none;
         border: none;
         transition: 0.2s ease-in-out;
-        background-color: green;
+        background-color: #2ecc71;
         font-size: 1rem;
         padding: 0.5rem 1rem;
         width: auto;
         margin: 0.5rem 1rem 0 0;
         height: 3rem;
         &:hover:enabled {
-            background-color:green;
+            background-color:#27ae60;
         }
     }
 

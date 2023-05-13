@@ -1,42 +1,60 @@
 import ColorSettings from '../Components/Settings/ColorSettings';
 import PionSettings from '../Components/Settings/PionSettings';
-import TrySettings from '../Components/Settings/TrySettings';
+import GuessesSettings from '../Components/Settings/GuessesSettings';
 import Play from '../Components/Buttons/Play';
 import Menu from "../Components/Buttons/Menu";
 import Title from '../Components/Text/Title';
 import SubTitle from '../Components/Text/SubTitle';
+import { SettingsProvider } from '../Provider/SettingsProvider';
+import GameModeSettings from '../Components/Settings/GameModeSettings';
 
 export default function Settings() {
     return (
-      <>
+      <SettingsProvider>
         <Menu />
         <section className="settings">
           <div className="settings-container">
-            <Title />
-            <SubTitle textAlign="center" fontSize="2rem" >Options</SubTitle>
+
+            <div className="settings-header">
+              <Title />
+              <SubTitle textAlign="center" fontSize="2rem" >Options</SubTitle>
+            </div>
     
-            <section style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-              <SubTitle fontSize="1.5rem" >Nombre de pions :</SubTitle>
-              <PionSettings />
-            </section>
-            
-            <section>
-              <SubTitle fontSize="1.5rem" >Quelles couleurs :</SubTitle>
-              <ColorSettings />
-            </section>
+            <div className="settings-body">
+
+              <div className="settings-block">
+                <SubTitle fontSize="1.5rem" >Mode de jeux :</SubTitle>
+                <GameModeSettings />
+              </div>
+
+              <hr />
+
+              <div className="settings-block">
+                <SubTitle fontSize="1.5rem" >Nombre de pions :</SubTitle>
+                <PionSettings />
+              </div>
+
+              <hr />
+              
+              <div className="settings-block">
+                <SubTitle fontSize="1.5rem" >Quelles couleurs :</SubTitle>
+                <ColorSettings />
+              </div>
+
+              <hr />
+      
+              <div className="settings-block">
+                <SubTitle fontSize="1.5rem" >Nombre d'essais :</SubTitle>
+                <GuessesSettings />
+              </div>
+            </div>
     
-            <section style={{ display: "flex", alignItems: "center", gap: "10px" }} >
-              <SubTitle fontSize="1.5rem" >Nombre d'essais :</SubTitle>
-              <TrySettings />
-            </section>
-    
-            <section>
+            <div className="settings-footer">
               <Play />
-            </section>
+            </div>
     
           </div>
         </section>
-      </>
-      
+      </SettingsProvider>
     );
   }

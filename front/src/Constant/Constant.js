@@ -17,3 +17,14 @@ export const INTERNAL_URL = {
     LOBBY: `/game/lobby/`,
     GAME: `/game/room/`,
 }
+
+export const GAMEMODE = {
+    CLASSIC: {
+        name: 'Classic',
+        description: 'The classic game mode',
+    },
+    VERSUS: {
+        name: 'Versus',
+        description: 'Jouer avec le même cod. Le plus rapide l\'emporte',
+    }
+}
