@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { SettingsContext } from "../../Context/SettingsContext";
 
-function PionSettings() {
+export default function PionSettings() {
 
     const { codeLength, setCodeLength } = useContext(SettingsContext);
 
@@ -14,7 +14,7 @@ function PionSettings() {
                     return (
                         <div className="pion-settings" key={index}>
                             <label htmlFor={`pion-settings-${element}`} className="rad-label">
-                                <input type="radio" className="rad-input" checked={codeLength === element} onChange={handlePion} id={`pion-settings-${element}`} value={element}/>
+                                <input type="radio" className="rad-input" name="pions-count" checked={codeLength === element} onChange={handlePion} id={`pion-settings-${element}`} value={element}/>
                                 <div className="rad-design"></div>
                                 <div className="rad-text">{element}</div>
                             </label>
@@ -26,5 +26,3 @@ function PionSettings() {
     )
 
 }
-
-export default PionSettings;

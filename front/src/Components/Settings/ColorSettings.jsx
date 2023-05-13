@@ -2,7 +2,7 @@ import { useContext, useState } from 'react';
 import { SettingsContext } from '../../Context/SettingsContext';
 import { ColorsContext } from '../../Context/ColorsContext';
 
-function ColorSettings() {
+export default function ColorSettings() {
 
   const { colorsAvailable } = useContext(ColorsContext);
   const { colorEnabled, setColorEnabled } = useContext(SettingsContext);
@@ -35,5 +35,3 @@ function ColorSettings() {
     </form>
   );
 }
-  
-export default ColorSettings;

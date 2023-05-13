@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import SubTitle from "../Components/Text/SubTitle";
 import { INTERNAL_URL, URL } from "../Constant/Constant";
 import Menu from "../Components/Buttons/Menu";
@@ -24,6 +24,10 @@ export default function Lobby() {
         const button = document.querySelector(".back").getElementsByTagName("button")[0]
         button.removeEventListener("click", () => {});
         button.addEventListener("click", () => socket.emit("leaveRoom", room_id));
+
+        socket.emit('checkRoom', room_id)
+        socket.off("checkRoomResponse");
+        socket.on("checkRoomResponse", (response) => (response.status === 404) ? navigate(INTERNAL_URL.ROOT) : null);
 
         if(location.state === null){
             socket.off("joinRoomResponse");
@@ -78,8 +82,6 @@ export default function Lobby() {
 
     const handlePlay = () => {
         socket.emit("startGame", room.id);
-
-
     }
     
     const copyClipboard = () => {

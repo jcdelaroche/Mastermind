@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { SettingsContext } from "../../Context/SettingsContext";
 
-function PlayersSettings() {
+export default function PlayersSettings() {
 
     const { playerCount, setPlayerCount } = useContext(SettingsContext);
 
@@ -26,5 +26,3 @@ function PlayersSettings() {
     )
 
 }
-
-export default PlayersSettings;

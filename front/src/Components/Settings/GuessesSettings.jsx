@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { SettingsContext } from "../../Context/SettingsContext";
 
-function TrySettings({ min = 1, max = 20 }) {
+export default function GuessesSettings({ min = 1, max = 20 }) {
 
     const { maxGuesses, setMaxGuesses } = useContext(SettingsContext);
 
@@ -15,5 +15,3 @@ function TrySettings({ min = 1, max = 20 }) {
     )
 
 }
-
-export default TrySettings;

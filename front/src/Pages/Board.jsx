@@ -5,12 +5,17 @@ import Title from "../Components/Text/Title";
 import { SettingsContext } from "../Context/SettingsContext";
 import { ColorCombination } from "../Class/ColorCombination";
 import { Games } from "../Class/Games";
-import { GameState } from "../Constant/Constant";
-import { Link } from "react-router-dom";
+import { GameState, INTERNAL_URL } from "../Constant/Constant";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+
+import io from "socket.io-client";
 
 
 function Board() {
 
+    const [socket, setSocket] = useState(io(URL.SOCKET));
+    const [room, setRoom] = useState({host: null, player: null});
+    const [host, setHost] = useState(false);
 
     const { settings } = useContext(SettingsContext);
     const [refresh, setRefresh] = useState(0)
@@ -19,9 +24,23 @@ function Board() {
     const [attempt, setAttempt] = useState(0);
     const [gameState, setGameState] = useState(GameState.PLAYING);
 
+    const navigate = useNavigate(); 
+    const location = useLocation();
+    const { room_id } = useParams();
+
 
     /* INITIALISATION DU CODE GAGNANT */
     useEffect(() => {
+
+        socket.emit('checkRoom', room_id)
+        socket.off("checkRoomResponse");
+        socket.on("checkRoomResponse", (response) => (response.status === 404) ? navigate(INTERNAL_URL.ROOT) : null);
+
+        if(location.state === null) navigate(INTERNAL_URL.HOME);
+
+        
+
+
         Game.setWinningCode(Game.forceCode(["red", "blue", "green", "yellow"]));
     }, []);
 

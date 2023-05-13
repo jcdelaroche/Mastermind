@@ -32,6 +32,11 @@ const Players = new Map();
 
 io.on('connection', (socket) => {
 
+    socket.on('checkRoom', (room_id) => {
+        console.log(room_id);
+        return io.to(socket.id).emit('checkRoomResponse', { status: (Rooms.has(room_id)) ? 200 : 404 });
+    })
+
     socket.on('createRoom', (settings) => {
         const player = new Player(socket.id);
         Players.set(player.id, player)
