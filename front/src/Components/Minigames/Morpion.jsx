@@ -31,6 +31,7 @@ export default function Morpion() {
         ""
     ]);
 
+
     const [win, setWin] = useState("");
 
 
@@ -51,41 +52,41 @@ export default function Morpion() {
                 ]
             });
 
-        } else {
-            if (game[e] === "") {
-                setGame((currentGame) => {
-                    return currentGame.map((cell, index) => {
-                        if (index === e) {
-                            if (cell === "X" || cell === "O") {
-                                return cell;
-                            }
-                            return "X";
+        } else if (game[e] === "") {
+            setGame((currentGame) => {
+                let newGame = currentGame.map((cell, index) => {
+                    if (index === e) {
+                        if (cell === "X" || cell === "O") {
+                            return cell;
                         }
-                        return cell;
-                    })
-                }
-                )
-                console.log(game);
-                isFinished();
+                        return "X";
+                    }
+                    return cell;
+                })
+                isFinished(newGame);
                 if (win === "") {
-                    botPlay();
+                    botPlay(newGame);
                 }
-            }
-            isFinished();
+                return newGame;
+            });                
         }
+        
     }
 
-    function botPlay() {
-        let emptySlots = game.reduce((acc, cell, index) => {
+    function botPlay(newGame) {
+        let emptySlots = newGame.reduce((acc, cell, index) => {
             if (cell === "") {
                 acc.push(index);
             }
             return acc;
         }, []);
+        console.log("emptyslots",emptySlots);
         let randomIndex = Math.floor(Math.random() * emptySlots.length);
+        console.log("randomIndex",randomIndex);
         let randomCell = emptySlots[randomIndex];
+        console.log("randomCell",randomCell);
         setGame((currentGame) => {
-            return currentGame.map((cell, index) => {
+            let botGame = currentGame.map((cell, index) => {
                 if (index === randomCell) {
                     if (cell === "X" || cell === "O") {
                         return cell;
@@ -93,16 +94,16 @@ export default function Morpion() {
                     return "O";
                 }
                 return cell;
-            }
-            )
-        }
-        )
-        isFinished();
+            });
+            console.log("botGame",botGame);
+            isFinished(botGame);
+            return botGame;
+        });
     }
 
-    function isFinished() {
+    function isFinished(currentGame) {
         console.log("isFinished");
-        console.log(game);
+        console.log(currentGame);
         const winConditions = [
             [0, 1, 2],
             [3, 4, 5],
@@ -114,10 +115,10 @@ export default function Morpion() {
             [2, 4, 6]
         ];
 
-        const checkWin = (game, player) => {
+        const checkWin = (currentGame, player) => {
             for (let i = 0; i < winConditions.length; i++) {
                 const [a, b, c] = winConditions[i];
-                if (game[a] === player && game[b] === player && game[c] === player) {
+                if (currentGame[a] === player && currentGame[b] === player && currentGame[c] === player) {
                     return true;
                 }
             }
@@ -138,7 +139,7 @@ export default function Morpion() {
             }
         }
 
-        handleGameEnd(game);
+        handleGameEnd(currentGame);
     }
 
     return (
