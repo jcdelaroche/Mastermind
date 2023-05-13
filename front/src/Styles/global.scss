@@ -24,6 +24,11 @@ body {
     background-color: rgba(128, 128, 128, 0.1);
     float: left;
 
+    &.guess {
+        width: 20px; height: 20px;
+        margin: 1px;
+    }
+
     $colors: red, blue, green, yellow, orange, violet, pink, black, white, grey, brown, cyan;
 
     @each $color in $colors {

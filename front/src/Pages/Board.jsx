@@ -163,11 +163,11 @@ function Board() {
                             {
                                 (Game.getGuesses()).map((guess, index) =>
                                 <li key={index} className="pions-selection-guessed">
-                                    {guess.colors.getCode().map((code, i) =>
+                                    {guess.colors.getCode().filter(code => code.color != null).map((code, i) => 
                                         <div key={i} className="pions-guessed">
-                                            <span className={`pion ${code.color != null ? code.color : ""}`} style={{ cursor: "default" }}></span>
+                                            <span className={`pion guess ${code.color != null ? code.color : ""}`} style={{ cursor: "default" }}></span>
                                             <span className={`guess-result ${(guess.details) ? (guess.details.details[i] !== "incorrect") ? guess.details.details[i] : "" : "" }`}></span>
-                                        </div>
+                                        </div> 
                                     )}
                                 </li>
                                 )
