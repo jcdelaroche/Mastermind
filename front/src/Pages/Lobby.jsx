@@ -3,6 +3,7 @@ import SubTitle from "../Components/Text/SubTitle";
 import { INTERNAL_URL, URL } from "../Constant/Constant";
 import Menu from "../Components/Buttons/Menu";
 import Title from "../Components/Text/Title";
+import Morpion from "../Components/Minigames/Morpion";
 
 import { useEffect, useState } from "react";
 
@@ -133,6 +134,9 @@ export default function Lobby() {
                 : <span>En attente de l'hôte...</span>}
 
                 {host ? <button className="play" onClick={handlePlay}>Jouer</button> : undefined}
+
+
+                <Morpion />
 
             </section>
 
