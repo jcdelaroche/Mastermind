@@ -4,10 +4,11 @@ import { INTERNAL_URL, URL } from "../Constant/Constant";
 import Menu from "../Components/Buttons/Menu";
 import Title from "../Components/Text/Title";
 import Morpion from "../Components/Minigames/Morpion";
-
+import { FaEdit } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
 import io from "socket.io-client";
+import Socket from "../Class/Socket";
 
 export default function Lobby() {
 
@@ -26,53 +27,50 @@ export default function Lobby() {
         button.removeEventListener("click", () => {});
         button.addEventListener("click", () => socket.emit("leaveRoom", room_id));
 
-        socket.emit('checkRoom', room_id)
-        socket.off("checkRoomResponse");
-        socket.on("checkRoomResponse", (response) => (response.status === 404) ? navigate(INTERNAL_URL.ROOT) : null);
+        (async() => {
+            const checkRoom = await Socket.send(socket, 'checkRoom', room_id)
+            if(checkRoom === 404) setTimeout(() => navigate(INTERNAL_URL.ROOT), 1);
 
-        if(location.state === null){
-            socket.off("joinRoomResponse");
-            socket.emit("joinRoom", room_id);
-    
-            socket.on("joinRoomResponse", (response) => {
-                switch(response.status){
+            if(location.state === null){
+                const joinRoom = await Socket.send(socket, 'joinRoom', room_id)
+
+                switch(joinRoom.status){
                     case "notFound":
-                        navigate(INTERNAL_URL.HOME);
+                        return setTimeout(() => navigate(INTERNAL_URL.ROOT), 1);
                         break;
                     case "full":
-                        navigate(INTERNAL_URL.HOME);
+                        return setTimeout(() => navigate(INTERNAL_URL.ROOT), 1);
                         break;
                     case "success":
-                        setRoom(response.room);
+                        setRoom(joinRoom.room);
                         break;
                 }
-            })
-        } else {
-            setHost(true);
-            setRoom(location.state.response.room);
-            socket.emit("updatePlayer", location.state.response.room.host.id);
-        }
+            } else {
+                const room = await Socket.send(socket, 'updatePlayer', location.state.response.room.host.id)
+                setHost(true);
+                setRoom(room);
+            }
+        })()
 
         socket.off("roomUpdated");
         socket.on("roomUpdated", (newRoom) => {
+            if(newRoom.player === null) setHost(true);
             setRoom(newRoom);
         })
 
         socket.off("roomDeleted");
         socket.on("roomDeleted", () => {
-            navigate(INTERNAL_URL.ROOT);
+            return setTimeout(() => navigate(INTERNAL_URL.ROOT), 1);
         })
 
         socket.off("leaveRoomResponse");
         socket.on("leaveRoomResponse", (response) => {
-            if(response.status === "notFound"){
-                navigate(INTERNAL_URL.ROOT);
-            }
-            navigate(INTERNAL_URL.ROOT);
+            return setTimeout(() => navigate(INTERNAL_URL.ROOT), 1);
         })
 
         socket.off("gameStarting");
         socket.on("gameStarting", (response) => {
+
             if(response.status === "success"){
                 navigate(`${INTERNAL_URL.GAME}${response.room.id}`, {state: {response, host}});
             }
@@ -81,9 +79,7 @@ export default function Lobby() {
     }, [])
     
 
-    const handlePlay = () => {
-        socket.emit("startGame", room.id);
-    }
+    const handlePlay = () => Socket.send(socket, "startGame", room.id)
     
     const copyClipboard = () => {
         const url = document.querySelector(".room span");
@@ -95,7 +91,7 @@ export default function Lobby() {
     }
 
     const handleChangeAvatar = (direction) => {
-        socket.emit("updateAvatar", {room_id: room.id, direction, host});
+        Socket.send(socket, "updateAvatar", {room_id: room.id, direction, host});
     }
 
     return (
@@ -114,7 +110,9 @@ export default function Lobby() {
                             {host ? <button className="imgButtons next" onClick={() => {handleChangeAvatar("next")}}>&rsaquo;</button> : undefined}
                         </div>
 
-                        <span>{(room.host) ? room.host.username : "Vous"}</span>
+                        <div style={{ display: "flex", alignItems: "center", alignItems: "center", gap: "5px" }}>
+                            <input className="input-lobby-name" id="host-username" type="text" disabled value={(room.host) ? room.host.username : "Vous"} />
+                        </div>
                     </div>
                     <div className="player">
                         <div className="avatarMenu">
@@ -123,7 +121,9 @@ export default function Lobby() {
                             {!host ? <button className="imgButtons next" onClick={() => {handleChangeAvatar("next")}}>&rsaquo;</button> : undefined}
                         </div>
                         
-                        <span>{(room.player) ? room.player.username : "Ordinateur"}</span>
+                        <div style={{ display: "flex", alignItems: "center", alignItems: "center", gap: "5px" }}>
+                            <input className="input-lobby-name" id="player-username" type="text" disabled value={(room.player) ? room.player.username : "Ordinateur"} />
+                        </div>
                     </div>
                 </div>
                 {host ?

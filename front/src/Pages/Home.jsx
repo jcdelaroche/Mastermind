@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Title from "../Components/Text/Title";
+import { useEffect } from "react";
 
 function Home() {
 

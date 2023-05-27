@@ -25,6 +25,10 @@ export const GAMEMODE = {
     },
     VERSUS: {
         name: 'Versus',
-        description: 'Jouer avec le même cod. Le plus rapide l\'emporte',
+        description: 'Jouer avec le même code. Le moins de tentatives l\'emporte',
+    },
+    CHRONO: {
+        name: 'Chrono',
+        description: 'Jouer avec le même code. Le plus rapide l\'emporte',
     }
 }

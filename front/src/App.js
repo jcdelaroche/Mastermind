@@ -17,12 +17,12 @@ import Alert from "./Components/Alert";
         <ColorsProvider>
           <Alert>
             <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/game/settings" element={<Settings />} />
-                <Route path="/game/lobby/:room_id" element={<Lobby />} />
-                <Route path="/game/room/:room_id" element={<Board />} />
-                <Route path="*" element={<Error code="404" />} />
-              </Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/game/settings" element={<Settings />} />
+              <Route path="/game/lobby/:room_id" element={<Lobby />} />
+              <Route path="/game/room/:room_id" element={<Board />} />
+              <Route path="*" element={<Error code="404" />} />
+            </Routes>
           </Alert>
         </ColorsProvider>
       </SocketProvider>

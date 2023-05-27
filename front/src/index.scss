@@ -421,6 +421,17 @@ section.lobby {
     padding: 100px 0;
     gap: 50px;
 
+    .input-lobby-name{
+        text-align: center;
+        padding: 5px 5px;
+        background: transparent;
+        outline: none;
+        border: none;
+        &:disabled {
+            color: #000;
+        }
+    }
+
     .players {
         display: flex;
         gap: 45px;

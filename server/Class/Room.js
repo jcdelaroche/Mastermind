@@ -8,6 +8,19 @@ module.exports = class Room {
         this.messages = [];
     }
 
+    // sendToHost(event, payload){
+    //     this.io.to(this.host.socket).emit(event, payload);
+    // }
+
+    // sendToPlayer(event, payload){
+    //     this.io.to(this.player.socket).emit(event, payload);
+    // }
+
+    // send(event, payload){
+    //     this.io.to(this.host.socket).emit(event, payload);
+    //     this.io.to(this.player.socket).emit(event, payload);
+    // }
+
     hasPlayer(player){
         return ((this.player != null && this.player === player) || this.host === player)
     }

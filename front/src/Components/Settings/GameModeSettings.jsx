@@ -7,7 +7,7 @@ export default function GameModeSettings() {
     const { gameMode, setGameMode } = useContext(SettingsContext);
 
     const handleChange = ({ target: { value } }) => {
-        const result = (GAMEMODE[value.toUpperCase()] == undefined) ? GAMEMODE.CLASSIC : GAMEMODE[value.toUpperCase()]
+        const result = (GAMEMODE[value.toUpperCase()] === undefined) ? GAMEMODE.CLASSIC : GAMEMODE[value.toUpperCase()]
         setGameMode(result);
     }
 
